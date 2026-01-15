@@ -3,7 +3,9 @@ import numpy as np
 from typing import List, Dict, Any, Tuple 
 from dataclasses import dataclass 
 from dataiku.core.sql import SQLExecutor2
-from utils import dq_rules
+from utils import dq_rules, load_model
+
+opt_classifier = load_model('opt_model.pkl')
 
 @dataclass
 class RuleSuggestion:
