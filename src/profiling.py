@@ -3,7 +3,7 @@ import numpy as np
 from typing import Dict, List, Any, Union
 from metrics import PROFILING_CONFIG
 from dataclasses import dataclass
-from utils import patternize, get_dtype_key, DATETIME_FORMATS
+from utils import get_dtype_key, DATETIME_FORMATS
 
 @dataclass
 class Metadata:
