@@ -1,4 +1,7 @@
 import re
+import dataiku
+import joblib
+import io
 
 def patternize(s: str) -> str:
     if s is None or s != s:
@@ -45,3 +48,28 @@ def get_dtype_key(dtype: str):
     if dtype == 'bool':
         return 'boolean'
     return dtype
+
+dq_rules = [
+    'min_in_range',
+    'max_in_range',
+    'avg_in_range',
+    'sum_in_range',
+    'median_in_range',
+    'std_dev_in_range',
+    'values_are_not_empty',
+    'values_are_empty',
+    'values_are_unique',
+    'values_in_set',
+    'top_N_values_in_set',
+    'most_frequent_value_in_set',
+    'matches_pattern'
+]
+
+def load_model(file_name: str):
+    folder_path = 'model'
+    folder = dataiku.Folder(folder_path)
+    
+    with folder.get_download_stream(file_name) as stream:
+        model_bytes = io.BytesIO(stream.read())
+    model_bytes.seek(0)
+    return joblib.load(model_bytes)
