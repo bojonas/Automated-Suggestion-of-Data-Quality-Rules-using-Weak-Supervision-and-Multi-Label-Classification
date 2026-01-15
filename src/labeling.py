@@ -3,6 +3,22 @@ import numpy as np
 from snorkel.labeling import labeling_function, PandasLFApplier
 from snorkel.labeling.model import LabelModel
 
+df_profiles = pd.concat(
+    [
+        df_num_profile,
+        df_str_profile, 
+        df_dt_profile, 
+        df_bool_profile
+    ],
+    ignore_index=True)
+
+df_clustered_profile = (
+    df_profiles
+    .merge(df_kmeans_all, on=keys, how='left')
+    .merge(df_dbscan_all, on=keys, how='left')
+)
+df_clustered_profile
+
 POSITIVE = 1
 NEGATIVE = 0
 ABSTAIN = -1
